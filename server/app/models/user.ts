@@ -1,10 +1,11 @@
 import { DateTime } from 'luxon'
-import { BaseModel, column } from '@adonisjs/lucid/orm'
+import { BaseModel, column, hasMany } from '@adonisjs/lucid/orm'
 import { compose } from '@adonisjs/core/helpers'
 import hash from '@adonisjs/core/services/hash'
 import { withAuthFinder } from '@adonisjs/auth/mixins/lucid'
 import { DbAccessTokensProvider } from '@adonisjs/auth/access_tokens'
-import { userInfo } from 'os'
+import type { HasMany } from '@adonisjs/lucid/types/relations'
+import Project from '#models/project'
 
 const AuthFinder = withAuthFinder(() => hash.use('scrypt'), {
   uids: ['email'],
@@ -32,4 +33,7 @@ export default class User extends compose( BaseModel, AuthFinder ) {
   // exculde password property when serializing to JSON
   @column({ serializeAs: null })
   declare password: string
+
+  @hasMany(() => Project)
+  declare projects: HasMany<typeof Project>
 }

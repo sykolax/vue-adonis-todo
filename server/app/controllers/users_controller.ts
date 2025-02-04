@@ -14,12 +14,12 @@ export default class UsersController {
     async register ({ request }: HttpContext) { 
         const { email, password } = request.only(['email', 'password'])
         console.log(email, password)
-        const user = await User.create({
+        const user = await User.create({ 
             username: email, 
             email: email,
             password: password,
         })
-        
+
         const token = await User.accessTokens.create(user)
         return token
     }
