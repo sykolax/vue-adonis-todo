@@ -7,6 +7,7 @@
 |
 */
 
+import Project from '#models/project'
 import router from '@adonisjs/core/services/router'
 const UsersController = () => import('#controllers/users_controller')
 const ProjectsController = () => import('#controllers/projects_controller')
@@ -23,4 +24,5 @@ router.group(() => {
   router.get('projects', [ProjectsController, 'index'])
   router.post('projects', [ProjectsController, 'create'])
   router.delete('projects/:id', [ProjectsController, 'destroy'])
+  router.patch('projects/:id', [ProjectsController, 'update'])
 }).prefix('/api')

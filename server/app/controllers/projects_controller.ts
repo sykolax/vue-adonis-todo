@@ -5,6 +5,7 @@ import db from '@adonisjs/lucid/services/db'
 import { editProject } from '#abilities/main'
 import InvalidAccessException from "#exceptions/invalid_access_exception"
 import ResourceNotFoundException from "#exceptions/resource_not_found_exception"
+import { InvalidatedProjectKind } from "typescript";
 
 export default class ProjectsController {
     async index( { auth } : HttpContext) {
@@ -35,6 +36,23 @@ export default class ProjectsController {
         }
         if (await bouncer.allows(editProject, project)) {
             project.delete()
+        } else {
+            throw new InvalidAccessException()
+        }
+        return project
+    }
+
+    async update({ auth, params, bouncer, request } : HttpContext) {
+        await auth.authenticate()
+        const id = params.id
+        const project = await Project.find(id)
+        
+        if (!project) {
+            throw new ResourceNotFoundException()
+        }
+
+        if (await bouncer.allows(editProject, project)) {
+            await project.merge(request.only(['title'])).save()
         } else {
             throw new InvalidAccessException()
         }
