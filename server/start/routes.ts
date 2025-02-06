@@ -22,4 +22,5 @@ router.group(() => {
   router.post('auth/login', [UsersController, 'login'])
   router.get('projects', [ProjectsController, 'index'])
   router.post('projects', [ProjectsController, 'create'])
+  router.delete('projects/:id', [ProjectsController, 'destroy'])
 }).prefix('/api')
