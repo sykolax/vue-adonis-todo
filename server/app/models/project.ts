@@ -21,7 +21,7 @@ export default class Project extends BaseModel {
   declare userId: number
 
   @belongsTo(() => User, {
-    foreignKey: 'user_id'
+    foreignKey: 'userId'
   }) 
   declare user: BelongsTo<typeof User>
 

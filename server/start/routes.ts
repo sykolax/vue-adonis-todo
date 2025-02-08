@@ -29,5 +29,7 @@ router.group(() => {
 
   router.post('projects/:id/tasks', [TasksController, 'create'])
   router.get('projects/:id/tasks', [TasksController, 'index'])
+  router.patch('tasks/:id', [TasksController, 'update'])
+  router.delete('tasks/:id', [TasksController, 'destroy'])
 
 }).prefix('/api')

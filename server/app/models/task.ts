@@ -17,10 +17,13 @@ export default class Task extends BaseModel {
   declare description: string
 
   @column()
+  declare completed: boolean
+
+  @column()
   declare projectId: number
 
   @belongsTo(() => Project, {
-    foreignKey: 'project_id'
+    foreignKey: 'projectId'
   }) 
   declare project: BelongsTo<typeof Project>
 }

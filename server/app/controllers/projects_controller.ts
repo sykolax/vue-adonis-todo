@@ -30,7 +30,7 @@ export default class ProjectsController {
         const id = params.id
         const project = await Project.find(id) 
 
-        if (!project) {
+        if (project == null) {
             throw new ResourceNotFoundException()
         }
         if (await bouncer.allows(editProject, project)) {
@@ -38,7 +38,7 @@ export default class ProjectsController {
         } else {
             throw new InvalidAccessException()
         }
-        return project
+        return project 
     }
 
     async update({ auth, params, bouncer, request } : HttpContext) {
@@ -46,7 +46,7 @@ export default class ProjectsController {
         const id = params.id
         const project = await Project.find(id)
         
-        if (!project) {
+        if (project == null) {
             throw new ResourceNotFoundException()
         }
 
