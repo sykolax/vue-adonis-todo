@@ -1,0 +1,42 @@
+import Project from '#models/project'
+import Task from '#models/task'
+import { editProject } from '#abilities/main'
+import type { HttpContext } from '@adonisjs/core/http'
+import InvalidAccessException from "#exceptions/invalid_access_exception"
+import ResourceNotFoundException from '#exceptions/resource_not_found_exception'
+
+export default class TasksController {
+
+    async index({ auth, params, bouncer }: HttpContext) {
+        await auth.authenticate()
+        const project = await Project.find(params.id)
+        if(project == null) {
+            // null or undefined
+            throw new ResourceNotFoundException()
+        }
+
+        if (await bouncer.allows(editProject, project)) {
+            return await project.related('tasks').query()
+        }
+    }
+
+    async create({ auth, request, params, bouncer } : HttpContext) {
+        await auth.authenticate()
+        const { description } = request.only(['description'])
+        const id = params.id
+        const project = await Project.find(id)
+
+        if(!project) {
+            throw new ResourceNotFoundException()
+        }
+
+        if (await bouncer.allows(editProject, project)) {
+            const task = new Task()
+            task.description = description
+            project.related('tasks').save(task)
+            return task
+        } else {
+            throw new InvalidAccessException()
+        }
+    }
+}
