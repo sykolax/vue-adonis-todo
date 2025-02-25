@@ -1,44 +1,25 @@
 <script setup lang="ts">
 import { RouterLink, RouterView } from 'vue-router'
 import HelloWorld from './components/HelloWorld.vue'
+import Appbar from './components/Appbar.vue'
 </script>
 
 <template>
   <v-app>
-    <v-app-bar color="primary">
-      <v-app-bar-title>TODO APP</v-app-bar-title>
-      <v-btn>
-        <v-icon class="mr-2">mdi-folder</v-icon>
-        Projects
-      </v-btn>
-      <v-btn>
-        <v-icon class="mr-2">mdi-account-box</v-icon>
-        Register
-      </v-btn>
-      <v-btn>
-        <v-icon class="mr-2">mdi-login</v-icon>
-        Login
-      </v-btn>
-      <v-btn>
-        <v-icon class="mr-2">mdi-logout</v-icon>
-        Logout
-      </v-btn>
-    </v-app-bar>
+    <Appbar />
+    <v-main class="mx-auto main-container"><RouterView /></v-main>
   </v-app>
-  <header>
+  <!-- <header>
     <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="125" height="125" />
 
     <div class="wrapper">
       <HelloWorld msg="You did it!" />
-
       <nav>
         <RouterLink to="/">Home</RouterLink>
         <RouterLink to="/about">About</RouterLink>
       </nav>
     </div>
-  </header>
-
-  <RouterView />
+  </header> -->
 </template>
 
 <style scoped>
@@ -50,6 +31,10 @@ header {
 .logo {
   display: block;
   margin: 0 auto 2rem;
+}
+
+.main-container {
+  text-align: center;
 }
 
 nav {

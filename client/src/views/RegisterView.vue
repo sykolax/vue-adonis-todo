@@ -1,0 +1,80 @@
+<template>
+  <v-container class="register mx-auto">
+    <v-col xl="6" class="mx-auto">
+      <h1>Create Account</h1>
+      <v-alert icon="mdi-alert-circle-outline" color="error" v-show="authUserStore.errorOccured"
+        >Something went wrong. Please try again.</v-alert
+      >
+      <v-form class="mt-4" @submit.prevent>
+        <v-text-field
+          v-model="authUserStore.registerEmail"
+          type="email"
+          prepend-inner-icon="mdi-email-outline"
+          label="Email"
+          clearable
+          required
+          :rules="[rules.required, rules.email]"
+        ></v-text-field>
+        <v-text-field
+          v-model="authUserStore.registerPassword"
+          class="mt-4"
+          prepend-inner-icon="mdi-lock-outline"
+          :rules="[rules.required, rules.minPassword]"
+          :type="passwordShow ? 'text' : 'password'"
+          :append-inner-icon="passwordShow ? 'mdi-eye' : 'mdi-eye-off'"
+          label="Password"
+          clearable
+          required
+          autocomplete="new-password"
+          @click:append-inner="passwordShow = !passwordShow"
+        ></v-text-field>
+        <v-btn
+          class="mt-2 py-6"
+          color="primary"
+          type="submit"
+          @click="authUserStore.register"
+          flat
+          block
+          >Create an Account</v-btn
+        >
+      </v-form>
+    </v-col>
+  </v-container>
+</template>
+
+<script setup>
+import { useAuthUserStore } from '@/stores/authentication.ts'
+import { computed, ref } from 'vue'
+
+const authUserStore = useAuthUserStore()
+
+const passwordShow = ref(false)
+const rules = {
+  required: (value) => !!value || 'This field is required.',
+  email: (value) => {
+    const pattern =
+      /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+    return pattern.test(value) || 'Please enter a valid email address.'
+  },
+  minPassword: (value) => value.length >= 10 || 'Password should be 10 characters or more.',
+}
+</script>
+<style>
+.register {
+  width: 350px;
+}
+
+.none {
+  display: none;
+}
+
+.block {
+  display: block;
+}
+
+@media (min-width: 768px) {
+  .register {
+    width: 500px;
+  }
+}
+</style>

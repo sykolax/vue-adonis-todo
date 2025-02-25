@@ -13,7 +13,6 @@ export default class UsersController {
 
     async register ({ request }: HttpContext) { 
         const { email, password } = request.only(['email', 'password'])
-        console.log(email, password)
         const user = await User.create({ 
             username: email, 
             email: email,
