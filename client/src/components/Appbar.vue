@@ -14,7 +14,7 @@
         <v-icon class="mr-2">mdi-login</v-icon>
         Login
       </v-btn>
-      <v-btn v-if="authUserStore.isLoggedIn">
+      <v-btn v-if="authUserStore.isLoggedIn" @click="authUserStore.logout">
         <v-icon class="mr-2">mdi-logout</v-icon>
         Logout
       </v-btn>
