@@ -6,8 +6,10 @@ export default class UsersController {
 
     async login({ request }: HttpContext) {
         const { email, password } = request.only(['email', 'password'])
+        console.log(email, password)
         const user = await User.verifyCredentials(email, password)
         const token = await User.accessTokens.create(user)
+
         return token 
     }
 

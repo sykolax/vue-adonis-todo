@@ -10,7 +10,7 @@
         <v-icon class="mr-2">mdi-account-box</v-icon>
         Register
       </v-btn>
-      <v-btn v-if="!authUserStore.isLoggedIn">
+      <v-btn to="/login" v-if="!authUserStore.isLoggedIn">
         <v-icon class="mr-2">mdi-login</v-icon>
         Login
       </v-btn>

@@ -4,18 +4,20 @@ import api from '@/api/axios-config'
 import { useRouter } from 'vue-router'
 
 export const useAuthUserStore = defineStore('userAuth', () => {
-    const registerEmail = ref('')
-    const registerPassword = ref('')
+    const email = ref('')
+    const password = ref('')
     const token = ref('')
     const errorOccured = ref(false)
+
     const isLoggedIn = computed(() => !!token.value)
+
     const router = useRouter()
 
     function register() {
         errorOccured.value = false
         api.post('/auth/register', {
-            email: registerEmail.value,
-            password: registerEmail.value
+            email: email.value,
+            password: password.value
         })
         .then((response) => {
             console.log(response)
@@ -29,17 +31,37 @@ export const useAuthUserStore = defineStore('userAuth', () => {
         })
     }
 
-    // function login() {
-    //     errorOccured.value = false
-    //     api.post('/auth/login', {
-    //         email: 
-    //     })
-    // }
+    function login() {
+        errorOccured.value = false
+        api.post('/auth/login', {
+            email: email.value,
+            password: password.value
+        })
+        .then((response) => {
+            console.log(response)
+            token.value = response.data.token
+            router.push('/')
+        })
+        .catch((error) => {
+            errorOccured.value = true
+            console.log(error)
+        })
+    }
 
     function logout() {
         token.value = ''
         router.push('/login')
     }
 
-    return { registerEmail, registerPassword, token, errorOccured, register, isLoggedIn, logout}
+    function formFlush() {
+        errorOccured.value = false
+        email.value = ''
+        password.value = ''
+    }
+
+    return { 
+        email, password, token, errorOccured, 
+        register, isLoggedIn, logout, login, 
+        formFlush
+    }
 })

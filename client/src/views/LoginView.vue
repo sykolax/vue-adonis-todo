@@ -1,7 +1,7 @@
 <template>
-  <v-container class="register mx-auto">
+  <v-container class="login mx-auto">
     <v-col xl="6" class="mx-auto">
-      <h1>Create Account</h1>
+      <h1>Log in to your account</h1>
       <v-alert icon="mdi-alert-circle-outline" color="error" v-show="authUserStore.errorOccured"
         >Something went wrong. Please try again.</v-alert
       >
@@ -19,23 +19,22 @@
           v-model="authUserStore.password"
           class="mt-4"
           prepend-inner-icon="mdi-lock-outline"
-          :rules="[rules.required, rules.minPassword]"
+          :rules="[rules.required]"
           :type="passwordShow ? 'text' : 'password'"
           :append-inner-icon="passwordShow ? 'mdi-eye' : 'mdi-eye-off'"
           label="Password"
           clearable
           required
-          autocomplete="new-password"
           @click:append-inner="passwordShow = !passwordShow"
         ></v-text-field>
         <v-btn
           class="mt-2 py-6"
           color="primary"
           type="submit"
-          @click="authUserStore.register"
+          @click="authUserStore.login"
           flat
           block
-          >Create an Account</v-btn
+          >Log In</v-btn
         >
       </v-form>
     </v-col>
@@ -61,12 +60,12 @@ const rules = {
 }
 </script>
 <style>
-.register {
+.login {
   width: 350px;
 }
 
 @media (min-width: 768px) {
-  .register {
+  .login {
     width: 500px;
   }
 }
