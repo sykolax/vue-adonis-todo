@@ -8,9 +8,7 @@ export const useAuthUserStore = defineStore('userAuth', () => {
     const password = ref('')
     const token = ref('')
     const errorOccured = ref(false)
-
     const isLoggedIn = computed(() => !!token.value)
-
     const router = useRouter()
 
     function register() {

@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <v-app-bar color="primary" flat>
+    <v-app-bar color="primary">
       <v-app-bar-title>TODO APP</v-app-bar-title>
       <v-btn v-if="authUserStore.isLoggedIn">
         <v-icon class="mr-2">mdi-folder</v-icon>
