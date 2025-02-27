@@ -3,13 +3,17 @@ import Panel from '@/components/Panel.vue'
 import Project from '@/components/Projects.vue'
 import { useRouter } from 'vue-router'
 import { useAuthUserStore } from '@/stores/authentication'
+import { useProjectStore } from '@/stores/projects'
 
 const authUserStore = useAuthUserStore()
+const projectStore = useProjectStore()
 const router = useRouter()
 
 // redirect to login page if not authenticated
 if (!authUserStore.isLoggedIn) {
   router.push('/login')
+} else {
+  projectStore.fetchProjects()
 }
 </script>
 

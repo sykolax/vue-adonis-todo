@@ -1,7 +1,7 @@
 <template>
-  <v-sheet class="panel white elevation-1">
+  <v-sheet class="panel white elevation-1 text-start">
     <v-toolbar density="comfortable" color="primary" class="panel">
-      <v-toolbar-title class="mx-0">{{ props.title }}</v-toolbar-title>
+      <v-toolbar-title>{{ props.title }}</v-toolbar-title>
     </v-toolbar>
     <div>
       <slot>No content defined.</slot>
