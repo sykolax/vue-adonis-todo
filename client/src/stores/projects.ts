@@ -42,6 +42,7 @@ export const useProjectStore = defineStore('projects', () => {
     }
 
     function createProject() {
+        console.log('create!')
         api.post('/projects', {
             title: newProjectName.value
         }, {
@@ -50,7 +51,7 @@ export const useProjectStore = defineStore('projects', () => {
             }
         })
         .then((response) => {
-            projects.value.push(response.data.title)
+            projects.value.push(response.data)
             newProjectName.value = ''
         })
 

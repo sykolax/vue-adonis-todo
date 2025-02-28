@@ -1,3 +1,7 @@
+<script setup lang="ts">
+const props = defineProps(['title'])
+</script>
+
 <template>
   <v-sheet class="panel white elevation-1 text-start">
     <v-toolbar density="comfortable" color="primary" class="panel">
@@ -8,9 +12,7 @@
     </div>
   </v-sheet>
 </template>
-<script setup lang="ts">
-const props = defineProps(['title'])
-</script>
+
 <style>
 .panel {
   min-width: 300px;
