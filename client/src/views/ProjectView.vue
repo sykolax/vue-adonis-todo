@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import Panel from '@/components/Panel.vue'
 import Project from '@/components/Projects.vue'
+import Task from '@/components/Tasks.vue'
 import { useRouter } from 'vue-router'
 import { useAuthUserStore } from '@/stores/authentication'
 import { useProjectStore } from '@/stores/projects'
@@ -20,9 +21,7 @@ if (!authUserStore.isLoggedIn) {
 <template>
   <v-container class="panel-container d-flex ga-4">
     <Project></Project>
-    <Panel class="tasks-panel" title="Tasks">
-      <h1>testing!</h1>
-    </Panel>
+    <Task></Task>
   </v-container>
 </template>
 
@@ -38,6 +37,10 @@ if (!authUserStore.isLoggedIn) {
 
 .tasks-panel {
   flex: 2 1;
+}
+
+.border-bottom-thin {
+  border-bottom: 1px solid rgb(200, 200, 200);
 }
 
 @media (min-width: 768px) {

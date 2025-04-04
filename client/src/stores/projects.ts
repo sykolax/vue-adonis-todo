@@ -11,7 +11,7 @@ interface ProjectIndexResponse {
     updatedAt: Date
 }
 
-interface Project extends ProjectIndexResponse {
+export interface Project extends ProjectIndexResponse {
     isEditMode: boolean
 }
 
@@ -19,6 +19,7 @@ export const useProjectStore = defineStore('projects', () => {
     const authUserStore = useAuthUserStore()
     const projects = ref<Project[]>([])
     const newProjectName = ref('')
+    const currentProject = ref<Project>()
 
     function fetchProjects() {
         api.get('/projects', {
@@ -54,7 +55,6 @@ export const useProjectStore = defineStore('projects', () => {
             projects.value.push(response.data)
             newProjectName.value = ''
         })
-
     }
 
     function removeProject(project: Project) {
@@ -89,6 +89,8 @@ export const useProjectStore = defineStore('projects', () => {
         })
     }
 
-    return { newProjectName, projects, createProject, fetchProjects,
-         removeProject, editProject, saveProject }
+    return { 
+            newProjectName, projects, currentProject, createProject, fetchProjects,
+            removeProject, editProject, saveProject
+        }
 })
